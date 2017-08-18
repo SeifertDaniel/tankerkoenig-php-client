@@ -1,0 +1,15 @@
+{
+    "name": "lang/tankerking",
+    "authors": [
+        {
+            "name": "Tobias Lang",
+            "email": "tobiaslang86@googlemail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Lang\\": "src/Lang/"
+        }
+    }
+}
