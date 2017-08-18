@@ -8,7 +8,7 @@ Inspired by https://github.com/tankerkoenig/tankerkoenig-php-client/
 ## Install
 
 ```
-composer require lang/tankerking
+composer require lxlang/tankerkoenig-php-client
 ```
 ## API-KEY
 The free Tankerkönig-Spritpreis-API is under creative commons.
@@ -19,7 +19,7 @@ https://creativecommons.tankerkoenig.de
 ## Usage
 ### Init API client
 ```
-use Lang\Tankerking\ApiClient;
+use Lang\Tankerkoenig\ApiClient;
 $apiClient = new ApiClient("your-api-key-here");
 ```
 
@@ -41,7 +41,7 @@ print_r($gasStations);
 //unique id of a gas station
 $gasStationUuid = '51d4b6a2-a095-1aa0-e100-80009459e03a';
 
-// returns an object of type \Lang\Tankerking\GasStatsion
+// returns an object of type \Lang\Tankerkoenig\GasStatsion
 $gasStation = $apiClient->detail($gasStationUuid);
  
 print_r($gasStation);
