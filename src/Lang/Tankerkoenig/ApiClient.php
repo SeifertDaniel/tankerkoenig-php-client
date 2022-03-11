@@ -1,5 +1,5 @@
 <?php
-namespace Lang\Tankerking;
+namespace Lang\Tankerkoenig;
 
 class ApiClient {
 	const SORT_PRICE = 'price';

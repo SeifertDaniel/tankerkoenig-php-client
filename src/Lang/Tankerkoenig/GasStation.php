@@ -1,13 +1,13 @@
 <?php
 
-namespace Lang\Tankerking;
+namespace Lang\Tankerkoenig;
 
 /**
  * Class GasStation
  *
  * Simple wrapper to hold gas station data in a handy object
  *
- * @package Lang\Tankerking
+ * @package Lang\Tankerkoenig
  */
 class GasStation {
 
