@@ -8,6 +8,7 @@ class ApiClient {
 	const TYPE_E10 = 'e10';
 	const TYPE_E5 = 'e5';
 	const TYPE_DIESEL = 'diesel';
+	const TYPE_ALL = 'all';
 
 	private $apiKey;
 
@@ -34,16 +35,25 @@ class ApiClient {
 		
 		foreach ($apiResult as $station) {
 			//map to an reasonable layout
-			$result[$station->id] = [
+
+            $prices = $type === self::TYPE_ALL ?
+                [
+                    'e5' => (float)($station->e5),
+                    'e10' => (float)($station->e10),
+                    'diesel' => (float)($station->diesel)
+                ] : [
+                    'price' => (float)($station->price)
+                ];
+
+			$result[$station->id] = array_merge([
 				'name' => ($station->name),
 				'brand' => ($station->brand),
 				'dist' => (float)($station->dist),
-				'price' => (float)($station->price),
 				'street' => ($station->street),
 				'houseNumber' => ($station->houseNumber),
 				'postCode' => ($station->postCode),
 				'place' => ($station->place),
-			];
+			], $prices);
 		}
 
 		return $result;
