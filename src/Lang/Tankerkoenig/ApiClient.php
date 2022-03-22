@@ -1,19 +1,20 @@
 <?php
 namespace Lang\Tankerkoenig;
 
-class ApiClient {
-	const SORT_PRICE = 'price';
-	const SORT_DIST = 'dist';
+class ApiClient
+{
+	const SORT_PRICE    = 'price';
+	const SORT_DIST     = 'dist';
 
-	const TYPE_E10 = 'e10';
-	const TYPE_E5 = 'e5';
-	const TYPE_DIESEL = 'diesel';
-	const TYPE_ALL = 'all';
+	const TYPE_E10      = 'e10';
+	const TYPE_E5       = 'e5';
+	const TYPE_DIESEL   = 'diesel';
+	const TYPE_ALL      = 'all';
 
 	private $apiKey;
 
-
-	public function __construct(string $apiKey) {
+    public function __construct(string $apiKey)
+    {
 		$this->apiKey = $apiKey;
 	}
 
@@ -26,21 +27,16 @@ class ApiClient {
 		    throw new ApiException("FEHLER - Die Tankerkoenig-API konnte nicht abgefragt werden!");
 		}
 
+		/** @var \stdClass $data */
 		$data = json_decode($json);
 
         if ($data->ok !== true) {
             throw new ApiException("FEHLER - Die Tankerkoenig-API meldet diesen Fehler: ".$data->message);
         }
 
-		// Daten der Tankstellen in Array speichern
-		$apiResult = $data->stations;
-
-		// Daten der Tankstellen aus Array auslesen und HTML-Code generieren
 		$result = [];
 		
-		foreach ($apiResult as $station) {
-			//map to an reasonable layout
-
+		foreach ($data->stations as $station) {
             $prices = $type === self::TYPE_ALL ?
                 [
                     'e5' => (float)($station->e5),
@@ -73,6 +69,7 @@ class ApiClient {
 		    throw new ApiException("FEHLER - Die Tankerkoenig-API konnte nicht abgefragt werden!");
 		}
 
+        /** @var array $data */
 		$data = json_decode($json, true);
 
         if ($data['ok'] !== true) {
