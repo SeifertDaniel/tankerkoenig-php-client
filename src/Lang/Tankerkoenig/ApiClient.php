@@ -27,6 +27,10 @@ class ApiClient {
 
 		$data = json_decode($json);
 
+        if ($data->ok !== true) {
+            throw new ApiException("FEHLER - Die Tankerkoenig-API meldet diesen Fehler: ".$data->message);
+        }
+
 		// Daten der Tankstellen in Array speichern
 		$apiResult = $data->stations;
 
@@ -68,7 +72,11 @@ class ApiClient {
 		}
 
 		$data = json_decode($json, true);
-		//TODO: check for OK status code
+
+        if ($data['ok'] !== true) {
+            throw new ApiException("FEHLER - Die Tankerkoenig-API meldet diesen Fehler: ".$data['message']);
+        }
+
 		return GasStation::fromApiArray($data['station']);
 	}
 }
