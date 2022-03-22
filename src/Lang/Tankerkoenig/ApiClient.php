@@ -17,9 +17,10 @@ class ApiClient {
 		$this->apiKey = $apiKey;
 	}
 
-
-	public function search(float $lat, float $lng, string $type = self::TYPE_DIESEL, int $radius = 5, string $sort = self::SORT_DIST): array {
-		$json = file_get_contents("https://creativecommons.tankerkoenig.de/json/list.php?lat={$lat}&lng={$lng}&rad={$radius}&sort={$sort}&type={$type}&apikey={$this->apiKey}");
+	public function search(float $lat, float $lng, string $type = self::TYPE_DIESEL, int $radius = 5, string $sort = self::SORT_DIST): array
+    {
+        $apiUrl = new ApiUrl($this->apiKey);
+		$json = file_get_contents($apiUrl->getListUrl($lat, $lng, $radius, $sort, $type));
 
 		if ($json === false) {
 		    throw new ApiException("FEHLER - Die Tankerkoenig-API konnte nicht abgefragt werden!");
@@ -63,9 +64,10 @@ class ApiClient {
 		return $result;
 	}
 
-
-	public function detail(string $gasStationId) : GasStation {
-		$json = file_get_contents("https://creativecommons.tankerkoenig.de/json/detail.php?id={$gasStationId}&apikey={$this->apiKey}");
+	public function detail(string $gasStationId) : GasStation
+    {
+        $apiUrl = new ApiUrl($this->apiKey);
+		$json = file_get_contents($apiUrl->getStationDetailUrl($gasStationId));
 
 		if ($json === false) {
 		    throw new ApiException("FEHLER - Die Tankerkoenig-API konnte nicht abgefragt werden!");
