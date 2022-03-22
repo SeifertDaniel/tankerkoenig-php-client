@@ -22,7 +22,7 @@ class ApiClient {
 		$json = file_get_contents("https://creativecommons.tankerkoenig.de/json/list.php?lat={$lat}&lng={$lng}&rad={$radius}&sort={$sort}&type={$type}&apikey={$this->apiKey}");
 
 		if ($json === false) {
-			throw new \Exception("FEHLER - Die Tankerkoenig-API konnte nicht abgefragt werden!");
+		    throw new ApiException("FEHLER - Die Tankerkoenig-API konnte nicht abgefragt werden!");
 		}
 
 		$data = json_decode($json);
@@ -64,7 +64,7 @@ class ApiClient {
 		$json = file_get_contents("https://creativecommons.tankerkoenig.de/json/detail.php?id={$gasStationId}&apikey={$this->apiKey}");
 
 		if ($json === false) {
-			throw new \Exception("FEHLER - Die Tankerkoenig-API konnte nicht abgefragt werden!");
+		    throw new ApiException("FEHLER - Die Tankerkoenig-API konnte nicht abgefragt werden!");
 		}
 
 		$data = json_decode($json, true);
