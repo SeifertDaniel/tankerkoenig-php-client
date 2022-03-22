@@ -39,9 +39,9 @@ class ApiClient
 		foreach ($data->stations as $station) {
             $prices = $type === self::TYPE_ALL ?
                 [
-                    'e5' => (float)($station->e5),
-                    'e10' => (float)($station->e10),
-                    'diesel' => (float)($station->diesel)
+                    self::TYPE_E5 => (float)($station->e5),
+                    self::TYPE_E10 => (float)($station->e10),
+                    self::TYPE_DIESEL => (float)($station->diesel)
                 ] : [
                     'price' => (float)($station->price)
                 ];
