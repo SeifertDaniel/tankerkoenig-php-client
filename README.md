@@ -47,3 +47,21 @@ $gasStation = $apiClient->detail($gasStationUuid);
 print_r($gasStation);
 ```
 
+### current prices by station list
+```
+$prices = $apiClient->prices([
+	'51d4b6a2-a095-1aa0-e100-80009459e03a'
+]);
+
+//echo results for testing
+print_r($prices);
+```
+
+### complaints
+```
+$apiClient->complaint(
+	'51d4b6a2-a095-1aa0-e100-80009459e03a',
+	Complaint::WRONG_PRICE_E10,
+	1.599
+);
+```

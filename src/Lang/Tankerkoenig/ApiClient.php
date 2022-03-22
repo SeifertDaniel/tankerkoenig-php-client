@@ -1,6 +1,9 @@
 <?php
 namespace Lang\Tankerkoenig;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+
 class ApiClient
 {
 	const SORT_PRICE    = 'price';
@@ -18,6 +21,15 @@ class ApiClient
 		$this->apiKey = $apiKey;
 	}
 
+    /**
+     * @param float $lat
+     * @param float $lng
+     * @param string $type
+     * @param int $radius
+     * @param string $sort
+     * @return array
+     * @throws ApiException
+     */
 	public function search(float $lat, float $lng, string $type = self::TYPE_DIESEL, int $radius = 5, string $sort = self::SORT_DIST): array
     {
         $apiUrl = new ApiUrl($this->apiKey);
@@ -60,6 +72,11 @@ class ApiClient
 		return $result;
 	}
 
+    /**
+     * @param string $gasStationId
+     * @return GasStation
+     * @throws ApiException
+     */
 	public function detail(string $gasStationId) : GasStation
     {
         $apiUrl = new ApiUrl($this->apiKey);
@@ -113,5 +130,57 @@ class ApiClient
         }
 
         return $result;
+    }
+
+    /**
+     * @param $stationId
+     * @param $type
+     * @param $correction
+     * @return bool
+     * @throws ApiException
+     * @throws GuzzleException
+     */
+    public function complaint($stationId, $type, $correction = null)
+    {
+        $apiUrl = new ApiUrl($this->apiKey);
+
+        $complaint = new Complaint();
+        if ($complaint->isCorrectionRequired($type) && !$correction) {
+            throw new ApiException("FEHLER - Der Korrekturtyp '".$type."' erfordert die Angabe eines Korrekturwertes.");
+        }
+
+        $body = [
+            'apikey'     => $this->apiKey,
+            'id'         => $stationId,
+            'type'       => $type,
+            'correction' => $correction
+        ];
+
+        $client = new Client();
+        $response = $client->request(
+            'POST',
+            $apiUrl->getComplaintUrl(),
+            [
+                'curl'  => [
+                    CURLOPT_RETURNTRANSFER  => false,
+                    CURLOPT_SSL_VERIFYPEER  => false,
+                ],
+                'form_params' => $body
+            ]
+        );
+
+        $json = $response->getBody();
+
+        if ($response->getStatusCode() !== 200 || $json === false) {
+            throw new ApiException("FEHLER - Die Tankerkoenig-API konnte nicht abgefragt werden!");
+        }
+
+        $data = json_decode($json, true);
+
+        if ($data['ok'] !== true) {
+            throw new ApiException("FEHLER - Die Tankerkoenig-API meldet diesen Fehler: " . $data['message']);
+        }
+
+        return true;
     }
 }

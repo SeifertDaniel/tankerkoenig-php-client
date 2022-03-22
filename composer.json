@@ -4,9 +4,15 @@
         {
             "name": "Tobias Lang",
             "email": "tobiaslang86@googlemail.com"
+        },
+        {
+            "name": "Daniel Seifert",
+            "email": "github@daniel-seifert.com"
         }
     ],
-    "require": {},
+    "require": {
+        "guzzlehttp/guzzle": "^7.4.2"
+    },
     "autoload": {
         "psr-4": {
             "Lang\\": "src/Lang/"

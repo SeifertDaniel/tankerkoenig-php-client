@@ -44,4 +44,12 @@ class ApiUrl
 
         return $this->baseUrl."prices.php?ids=".implode(',', $stationList)."&apikey={$this->apiKey}";
     }
+
+    /**
+     * @return string
+     */
+    public function getComplaintUrl()
+    {
+        return $this->baseUrl."complaint.php?apikey={$this->apiKey}";
+    }
 }
