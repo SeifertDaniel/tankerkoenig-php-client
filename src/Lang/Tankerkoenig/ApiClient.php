@@ -78,4 +78,40 @@ class ApiClient
 
 		return GasStation::fromApiArray($data['station']);
 	}
+
+    /**
+     * @param array $stationList
+     *
+     * @return array
+     * @throws ApiException
+     */
+	public function prices(array $stationList)
+    {
+        $apiUrl = new ApiUrl($this->apiKey);
+        $json = file_get_contents($apiUrl->getPricesUrl($stationList));
+
+        if ($json === false) {
+            throw new ApiException("FEHLER - Die Tankerkoenig-API konnte nicht abgefragt werden!");
+        }
+
+        /** @var array $data */
+        $data = json_decode($json, true);
+
+        if ($data['ok'] !== true) {
+            throw new ApiException("FEHLER - Die Tankerkoenig-API meldet diesen Fehler: ".$data['message']);
+        }
+
+        $result = [];
+
+        foreach ($data['prices'] as $stationId => $priceinfo) {
+            $result[$stationId] = PriceInfo::fromApiArray(
+                array_merge(
+                    ['stationId'    => $stationId],
+                    $priceinfo
+                )
+            );
+        }
+
+        return $result;
+    }
 }
