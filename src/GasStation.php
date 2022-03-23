@@ -30,7 +30,6 @@ class GasStation {
 	public $lng;
 	public $state;
 
-
 	public static function fromApiArray(array $array) : self {
 		return new static(
 			$array['id'],

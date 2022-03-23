@@ -14,9 +14,13 @@
         "guzzlehttp/guzzle": "^7.4.2"
     },
     "license": "MIT",
+    "require-dev": {
+        "phpunit/phpunit": "^8.5.25"
+    },
     "autoload": {
         "psr-4": {
-            "DanielS\\Tankerkoenig\\": "src/"
+            "DanielS\\Tankerkoenig\\": "src/",
+            "DanielS\\Tankerkoenig\\Tests\\": "tests/"
         }
     }
 }

@@ -3,6 +3,7 @@ namespace DanielS\Tankerkoenig;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use stdClass;
 
 class ApiClient
 {
@@ -30,16 +31,21 @@ class ApiClient
      * @return array
      * @throws ApiException
      */
-	public function search(float $lat, float $lng, string $type = self::TYPE_DIESEL, int $radius = 5, string $sort = self::SORT_DIST): array
+	public function search(
+        float $lat,
+        float $lng,
+        string $type = self::TYPE_DIESEL,
+        int $radius = 5,
+        string $sort = self::SORT_DIST
+    ): array
     {
-        $apiUrl = new ApiUrl($this->apiKey);
-		$json = file_get_contents($apiUrl->getListUrl($lat, $lng, $radius, $sort, $type));
+        $json = file_get_contents($this->getApiUrlInstance()->getListUrl($lat, $lng, $radius, $sort, $type));
 
 		if ($json === false) {
 		    throw new ApiException("FEHLER - Die Tankerkoenig-API konnte nicht abgefragt werden!");
 		}
 
-		/** @var \stdClass $data */
+		/** @var stdClass $data */
 		$data = json_decode($json);
 
         if ($data->ok !== true) {
@@ -47,7 +53,7 @@ class ApiClient
         }
 
 		$result = [];
-		
+
 		foreach ($data->stations as $station) {
             $prices = $type === self::TYPE_ALL ?
                 [
@@ -79,8 +85,7 @@ class ApiClient
      */
 	public function detail(string $gasStationId) : GasStation
     {
-        $apiUrl = new ApiUrl($this->apiKey);
-		$json = file_get_contents($apiUrl->getStationDetailUrl($gasStationId));
+		$json = file_get_contents($this->getApiUrlInstance()->getStationDetailUrl($gasStationId));
 
 		if ($json === false) {
 		    throw new ApiException("FEHLER - Die Tankerkoenig-API konnte nicht abgefragt werden!");
@@ -104,8 +109,7 @@ class ApiClient
      */
 	public function prices(array $stationList)
     {
-        $apiUrl = new ApiUrl($this->apiKey);
-        $json = file_get_contents($apiUrl->getPricesUrl($stationList));
+        $json = file_get_contents($this->getApiUrlInstance()->getPricesUrl($stationList));
 
         if ($json === false) {
             throw new ApiException("FEHLER - Die Tankerkoenig-API konnte nicht abgefragt werden!");
@@ -142,8 +146,6 @@ class ApiClient
      */
     public function complaint($stationId, $type, $correction = null)
     {
-        $apiUrl = new ApiUrl($this->apiKey);
-
         $complaint = new Complaint();
         if ($complaint->isCorrectionRequired($type) && !$correction) {
             throw new ApiException("FEHLER - Der Korrekturtyp '".$type."' erfordert die Angabe eines Korrekturwertes.");
@@ -159,7 +161,7 @@ class ApiClient
         $client = new Client();
         $response = $client->request(
             'POST',
-            $apiUrl->getComplaintUrl(),
+            $this->getApiUrlInstance()->getComplaintUrl(),
             [
                 'curl'  => [
                     CURLOPT_RETURNTRANSFER  => false,
@@ -182,5 +184,14 @@ class ApiClient
         }
 
         return true;
+    }
+
+    /**
+     * @return ApiUrl
+     */
+    protected function getApiUrlInstance(): ApiUrl
+    {
+        $apiUrl = new ApiUrl($this->apiKey);
+        return $apiUrl;
     }
 }
