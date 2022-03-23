@@ -4,6 +4,7 @@ Simple Client for tankstellenkoenig.de json api.
 
 Inspired by https://github.com/tankerkoenig/tankerkoenig-php-client/
 
+Forked from https://github.com/lxlang/tankerkoenig-php-client
 
 ## Install
 
@@ -19,7 +20,7 @@ https://creativecommons.tankerkoenig.de
 ## Usage
 ### Init API client
 ```
-use Lang\Tankerkoenig\ApiClient;
+use DanielS\Tankerkoenig\ApiClient;
 $apiClient = new ApiClient("your-api-key-here");
 ```
 

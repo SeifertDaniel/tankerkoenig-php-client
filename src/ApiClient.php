@@ -1,5 +1,5 @@
 <?php
-namespace Lang\Tankerkoenig;
+namespace DanielS\Tankerkoenig;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;

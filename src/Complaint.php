@@ -1,6 +1,6 @@
 <?php
 
-namespace Lang\Tankerkoenig;
+namespace DanielS\Tankerkoenig;
 
 class Complaint
 {

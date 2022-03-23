@@ -13,6 +13,6 @@
  * @link          http://www.oxidmodule.com
  */
 
-namespace Lang\Tankerkoenig;
+namespace DanielS\Tankerkoenig;
 
 class ApiException extends \Exception {}

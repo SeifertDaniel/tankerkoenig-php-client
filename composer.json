@@ -1,5 +1,5 @@
 {
-    "name": "lxlang/tankerkoenig-php-client",
+    "name": "daniels/tankerkoenig-php-client",
     "authors": [
         {
             "name": "Tobias Lang",
@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Lang\\": "src/Lang/"
+            "DanielS\\Tankerkoenig\\": "src/"
         }
     }
 }
