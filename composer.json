@@ -13,6 +13,7 @@
     "require": {
         "guzzlehttp/guzzle": "^7.4.2"
     },
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "DanielS\\Tankerkoenig\\": "src/"
