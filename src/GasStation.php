@@ -11,24 +11,24 @@ namespace DanielS\Tankerkoenig;
  */
 class GasStation {
 
-	public $id;
-	public $name;
-	public $brand;
-	public $street;
-	public $houseNumber;
-	public $postCode;
-	public $place;
-	public $openingTimes;
-	public $overrides;
-	public $wholeDay;
-	public $isOpen;
+	public string $id;
+	public string $name;
+	public string $brand;
+	public string $street;
+	public string $houseNumber;
+	public string $postCode;
+	public string $place;
+	public array $openingTimes;
+	public array $overrides;
+	public bool $wholeDay;
+	public bool $isOpen;
 
-	public $e5;
-	public $e10;
-	public $diesel;
-	public $lat;
-	public $lng;
-	public $state;
+	public float $e5;
+	public float $e10;
+	public float $diesel;
+	public float $lat;
+	public float $lng;
+	public string $state;
 
 	public static function fromApiArray(array $array) : self {
 		return new static(
@@ -57,7 +57,7 @@ class GasStation {
 		string $name,
 		string $brand,
 		string $street,
-		$houseNumber,
+		string $houseNumber,
 		string $postCode,
 		string $place,
 		array $openingTimes,
