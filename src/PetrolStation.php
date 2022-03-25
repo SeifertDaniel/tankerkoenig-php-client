@@ -3,13 +3,13 @@
 namespace DanielS\Tankerkoenig;
 
 /**
- * Class GasStation
+ * Class PetrolStation
  *
- * Simple wrapper to hold gas station data in a handy object
+ * Simple wrapper to hold petrol station data in a handy object
  *
  * @package DanielS\Tankerkoenig
  */
-class GasStation {
+class PetrolStation {
 
 	public string $id;
 	public string $name;

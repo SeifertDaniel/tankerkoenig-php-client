@@ -35,13 +35,13 @@ class ApiUrl
     }
 
     /**
-     * @param $gasStationId
+     * @param $stationId
      *
      * @return string
      */
-    public function getStationDetailUrl($gasStationId): string
+    public function getStationDetailUrl($stationId): string
     {
-        return "detail.php?id=$gasStationId&apikey=$this->apiKey";
+        return "detail.php?id=$stationId&apikey=$this->apiKey";
     }
 
     /**

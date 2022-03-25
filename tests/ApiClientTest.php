@@ -6,7 +6,7 @@ use DanielS\Tankerkoenig\ApiClient;
 use DanielS\Tankerkoenig\ApiException;
 use DanielS\Tankerkoenig\ApiUrl;
 use DanielS\Tankerkoenig\Complaint;
-use DanielS\Tankerkoenig\GasStation;
+use DanielS\Tankerkoenig\PetrolStation;
 use DanielS\Tankerkoenig\PriceInfo;
 use DanielS\Tankerkoenig\Tests\DataProviders\ApiClient as ApiClientDataProvider;
 use GuzzleHttp\Client;
@@ -253,7 +253,7 @@ class ApiClientTest extends ApiTestCase
 
         if (!$cantRequest && !$cantDecode) {
             $this->assertInstanceOf(
-                GasStation::class,
+                PetrolStation::class,
                 $return
             );
         }

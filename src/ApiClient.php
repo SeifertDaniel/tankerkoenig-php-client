@@ -77,18 +77,18 @@ class ApiClient
 	}
 
     /**
-     * @param string $gasStationId
+     * @param string $stationId
      *
-     * @return GasStation
+     * @return PetrolStation
      * @throws ApiException
      * @throws GuzzleException
      */
-	public function detail(string $gasStationId) : GasStation
+	public function detail(string $stationId) : PetrolStation
     {
-        $json = $this->request( $this->apiUrl->getStationDetailUrl($gasStationId));
+        $json = $this->request( $this->apiUrl->getStationDetailUrl($stationId));
         $data = $this->decodeResponse( $json, true );
 
-		return GasStation::fromApiArray($data['station']);
+		return PetrolStation::fromApiArray($data['station']);
 	}
 
     /**

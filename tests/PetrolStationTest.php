@@ -2,13 +2,13 @@
 
 namespace DanielS\Tankerkoenig\Tests;
 
-use DanielS\Tankerkoenig\GasStation;
+use DanielS\Tankerkoenig\PetrolStation;
 
-class GasStationTest extends ApiTestCase
+class PetrolStationTest extends ApiTestCase
 {
     /**
      * @test
-     * @covers GasStation::_construct
+     * @covers PetrolStation::_construct
      *
      * @return void
      */
@@ -32,7 +32,7 @@ class GasStationTest extends ApiTestCase
         $lng = 13.413;
         $state = 'stateFixture';
 
-        $station = new GasStation(
+        $station = new PetrolStation(
             $id, $name, $brand, $street, $houseno, $postCode, $place, $openingtimes, $overrides,
             $wholeday, $isopen, $e5, $e10, $diesel, $lat, $lng, $state
         );

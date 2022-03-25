@@ -27,25 +27,25 @@ $apiClient = new ApiClient("your-api-key-here");
 ### search for gas stations by location
 ``` 
 // get over
-$gasStations = $apiClient->search(
+$petrolStations = $apiClient->search(
 	50.538472, //lat
 	8.649647, //lng
 	$apiClient::TYPE_E10 //your type of fuel
 );
 
 //echo results for testing
-print_r($gasStations);
+print_r($petrolStations);
 ```
 
 ### Gas Station details
 ```  
-//unique id of a gas station
-$gasStationUuid = '51d4b6a2-a095-1aa0-e100-80009459e03a';
+//unique id of a petrol station
+$petrolStationUuid = '51d4b6a2-a095-1aa0-e100-80009459e03a';
 
-// returns an object of type \Lang\Tankerkoenig\GasStatsion
-$gasStation = $apiClient->detail($gasStationUuid);
+// returns an object of type \Lang\Tankerkoenig\PetrolStation
+$petrolStation = $apiClient->detail($petrolStationUuid);
  
-print_r($gasStation);
+print_r($petrolStation);
 ```
 
 ### current prices by station list
