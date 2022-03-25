@@ -18,15 +18,23 @@ class ApiClient
         $this->test = $test;
     }
 
-    public function getNotOkJson()
+    public function getNotOkArrayResponse()
+    {
+        $data = [];
+        $data['ok'] = false;
+        $data['message'] = 'unvalid';
+        return $data;
+    }
+
+    public function getNotOkObjectResponse()
     {
         $data = new stdClass();
         $data->ok = false;
         $data->message = 'unvalid';
-        return json_encode($data);
+        return $data;
     }
 
-    public function getSinglePriceJson()
+    public function getSinglePriceResponse()
     {
         $data = new stdClass();
         $data->ok = true;
@@ -42,7 +50,7 @@ class ApiClient
         $station->postCode = 'stationPostCode';
         $station->place = 'stationPlace';
         $data->stations[] = $station;
-        return json_encode($data);
+        return $data;
     }
 
     public function getExpectedSinglePriceResponse()
@@ -61,7 +69,7 @@ class ApiClient
         ];
     }
 
-    public function getAllPricesJson()
+    public function getAllPricesResponse()
     {
         $data = new stdClass();
         $data->ok = true;
@@ -79,7 +87,7 @@ class ApiClient
         $station->postCode = 'stationPostCode';
         $station->place = 'stationPlace';
         $data->stations[] = $station;
-        return json_encode($data);
+        return $data;
     }
 
     public function getExpectedAllPricesResponse()
@@ -100,7 +108,7 @@ class ApiClient
         ];
     }
 
-    public function getStationDetailJson()
+    public function getStationDetailResponse()
     {
         $data = [];
         $data['ok'] = true;
@@ -119,14 +127,14 @@ class ApiClient
         $station['overrides'] = ['stationOverrides'];
         $station['wholeDay'] = 'stationWholeDay';
         $station['isOpen'] = 'stationIsOpen';
-        $station['lat'] = 52.521231478503495;
-        $station['lng'] = 13.413301092880559;
+        $station['lat'] = 52.521;
+        $station['lng'] = 13.413;
         $station['state'] = 'stationState';
         $data['station'] = $station;
-        return json_encode($data);
+        return $data;
     }
 
-    public function getPricesJson()
+    public function getPricesResponse()
     {
         $data = [];
         $data['ok'] = true;
@@ -138,6 +146,6 @@ class ApiClient
         $priceitem['status'] = 'stationStatus';
         $prices = ['stationId1' => $priceitem, 'stationId2' => $priceitem];
         $data['prices'] = $prices;
-        return json_encode($data);
+        return $data;
     }
 }

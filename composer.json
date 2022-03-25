@@ -11,7 +11,9 @@
         }
     ],
     "require": {
-        "guzzlehttp/guzzle": "^7.4.2"
+        "guzzlehttp/guzzle": "^7.4.2",
+        "ext-json": "*",
+        "ext-curl": "*"
     },
     "license": "MIT",
     "require-dev": {
