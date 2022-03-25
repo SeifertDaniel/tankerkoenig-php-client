@@ -4,8 +4,8 @@ namespace DanielS\Tankerkoenig;
 
 class ApiUrl
 {
-    public $baseUrl = 'https://creativecommons.tankerkoenig.de/json/';
-    private $apiKey;
+    public string $baseUri = 'https://creativecommons.tankerkoenig.de/json/';
+    private string $apiKey;
 
     public function __construct($apiKey)
     {
@@ -13,17 +13,25 @@ class ApiUrl
     }
 
     /**
-     * @param $lat
-     * @param $lng
-     * @param $radius
-     * @param $sort
-     * @param $type
+     * @return string
+     */
+    public function getBaseUri(): string
+    {
+        return $this->baseUri;
+    }
+
+    /**
+     * @param float  $lat
+     * @param float  $lng
+     * @param float  $radius
+     * @param string $sort
+     * @param string $type
      *
      * @return string
      */
-    public function getListUrl($lat, $lng, $radius, $sort, $type)
+    public function getListUrl(float $lat, float $lng, float $radius, string $sort, string $type): string
     {
-        return $this->baseUrl."list.php?lat={$lat}&lng={$lng}&rad={$radius}&sort={$sort}&type={$type}&apikey={$this->apiKey}";
+        return "list.php?lat=$lat&lng=$lng&rad=$radius&sort=$sort&type=$type&apikey=$this->apiKey";
     }
 
     /**
@@ -31,25 +39,31 @@ class ApiUrl
      *
      * @return string
      */
-    public function getStationDetailUrl($gasStationId)
+    public function getStationDetailUrl($gasStationId): string
     {
-        return $this->baseUrl."detail.php?id={$gasStationId}&apikey={$this->apiKey}";
+        return "detail.php?id=$gasStationId&apikey=$this->apiKey";
     }
 
-    public function getPricesUrl(array $stationList)
+    /**
+     * @param array $stationList
+     *
+     * @return string
+     * @throws ApiException
+     */
+    public function getPricesUrl(array $stationList): string
     {
         if (count($stationList) < 1 || count($stationList) > 10) {
             throw new ApiException('Preisabfrage darf nur zwischen 1 und 10 Stationen beinhalten');
         }
 
-        return $this->baseUrl."prices.php?ids=".implode(',', $stationList)."&apikey={$this->apiKey}";
+        return "prices.php?ids=" . implode( ',', $stationList) . "&apikey=$this->apiKey";
     }
 
     /**
      * @return string
      */
-    public function getComplaintUrl()
+    public function getComplaintUrl(): string
     {
-        return $this->baseUrl."complaint.php?apikey={$this->apiKey}";
+        return $this->baseUri . "complaint.php?apikey=$this->apiKey";
     }
 }
