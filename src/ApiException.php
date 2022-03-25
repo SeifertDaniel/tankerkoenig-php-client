@@ -2,4 +2,6 @@
 
 namespace DanielS\Tankerkoenig;
 
-class ApiException extends \Exception {}
+use Exception;
+
+class ApiException extends Exception {}

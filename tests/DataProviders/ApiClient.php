@@ -2,23 +2,20 @@
 
 namespace DanielS\Tankerkoenig\Tests\DataProviders;
 
-use DanielS\Tankerkoenig\GasStation;
-use DanielS\Tankerkoenig\PriceInfo;
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
+use DanielS\Tankerkoenig\Tests\ApiTestCase;
 use stdClass;
 
 class ApiClient
 {
-    /** @var TestCase */
-    public $test;
+    /** @var ApiTestCase */
+    public ApiTestCase $test;
 
-    public function __construct(TestCase $test)
+    public function __construct(ApiTestCase $test)
     {
         $this->test = $test;
     }
 
-    public function getNotOkArrayResponse()
+    public function getNotOkArrayResponse(): array
     {
         $data = [];
         $data['ok'] = false;
@@ -26,7 +23,7 @@ class ApiClient
         return $data;
     }
 
-    public function getNotOkObjectResponse()
+    public function getNotOkObjectResponse(): stdClass
     {
         $data = new stdClass();
         $data->ok = false;
@@ -34,7 +31,7 @@ class ApiClient
         return $data;
     }
 
-    public function getSinglePriceResponse()
+    public function getSinglePriceResponse(): stdClass
     {
         $data = new stdClass();
         $data->ok = true;
@@ -53,7 +50,7 @@ class ApiClient
         return $data;
     }
 
-    public function getExpectedSinglePriceResponse()
+    public function getExpectedSinglePriceResponse(): array
     {
         return [
             'stationId' => [
@@ -69,7 +66,7 @@ class ApiClient
         ];
     }
 
-    public function getAllPricesResponse()
+    public function getAllPricesResponse(): stdClass
     {
         $data = new stdClass();
         $data->ok = true;
@@ -90,7 +87,7 @@ class ApiClient
         return $data;
     }
 
-    public function getExpectedAllPricesResponse()
+    public function getExpectedAllPricesResponse(): array
     {
         return [
             'stationId' => [
@@ -108,7 +105,7 @@ class ApiClient
         ];
     }
 
-    public function getStationDetailResponse()
+    public function getStationDetailResponse(): array
     {
         $data = [];
         $data['ok'] = true;
@@ -134,7 +131,7 @@ class ApiClient
         return $data;
     }
 
-    public function getPricesResponse()
+    public function getPricesResponse(): array
     {
         $data = [];
         $data['ok'] = true;
