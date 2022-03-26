@@ -28,7 +28,7 @@ class PetrolStation {
 	public float $diesel;
 	public float $lat;
 	public float $lng;
-	public string $state;
+	public string|null $state;
 
 	public static function fromApiArray(array $array) : self {
 		return new static(
@@ -69,7 +69,7 @@ class PetrolStation {
 		float $diesel,
 		float $lat,
 		float $lng,
-		$state
+		string|null $state
 	) {
 		$this->id = $id;
 		$this->name = $name;
