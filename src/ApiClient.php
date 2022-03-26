@@ -189,7 +189,8 @@ class ApiClient
         $isObject = is_object($data);
 
         if ( true !== ($isObject ? $data->ok : $data['ok']) ) {
-            throw new ApiException( "FEHLER - Die Tankerkoenig-API meldet diesen Fehler: " . $isObject ? $data->message : $data['message'] );
+            $message = $isObject ? $data->message : $data['message'];
+            throw new ApiException( "FEHLER - Die Tankerkoenig-API meldet diesen Fehler: " . $message );
         }
 
         return $data;
