@@ -9,7 +9,7 @@ Forked from https://github.com/lxlang/tankerkoenig-php-client
 ## Install
 
 ```
-composer require lxlang/tankerkoenig-php-client
+composer require daniels/tankerkoenig-php-client
 ```
 ## API-KEY
 The free Tankerkönig-Spritpreis-API is under creative commons.
