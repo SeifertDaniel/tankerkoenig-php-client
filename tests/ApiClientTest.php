@@ -340,6 +340,13 @@ class ApiClientTest extends ApiTestCase
                     false,
                     false,
                     ''
+                ],
+                'apiReturnsNoStations' => [
+                    $this->getApiDataProvider()->getPricesNoStationsResponse(),
+                    ApiClient::TYPE_E10,
+                    true,
+                    false,
+                    ''
                 ]
             ]
         );

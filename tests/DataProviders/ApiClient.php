@@ -145,4 +145,13 @@ class ApiClient
         $data['prices'] = $prices;
         return $data;
     }
+
+    public function getPricesNoStationsResponse(): array
+    {
+        $data = [];
+        $data['ok'] = true;
+        $prices = ['xxx' => 'no_stations'];
+        $data['prices'] = $prices;
+        return $data;
+    }
 }
