@@ -100,8 +100,13 @@ class ApiClient
      */
 	public function prices(array $stationList): array
     {
-        $json = $this->request( $this->apiUrl->getPricesUrl($stationList));
+        $url = $this->apiUrl->getPricesUrl($stationList);
+        $json = $this->request( $url);
         $data = $this->decodeResponse( $json, true );
+
+        if (in_array('xxx', array_keys($data['prices']))) {
+            throw new ApiException('request '.$url.' returns no found stations');
+        }
 
         $result = [];
 
