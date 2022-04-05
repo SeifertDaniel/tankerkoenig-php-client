@@ -335,9 +335,37 @@ class ApiClientTest extends ApiTestCase
             $this->getExceptionDataProvider(),
             [
                 'apiReturnsValid' => [
-                    $this->getApiDataProvider()->getPricesResponse(),
+                    'responseContent'   => $this->getApiDataProvider()->getPricesResponse(),
+                    'fuelType'          => ApiClient::TYPE_E10,
+                    'cantRequest'       => false,
+                    'cantDecode'        => false,
+                    'expected'          => ''
+                ],
+                'apiReturnsLimited' => [
+                    $this->getApiDataProvider()->getPricesLimitedResponse(),
                     ApiClient::TYPE_E10,
                     false,
+                    false,
+                    ''
+                ],
+                'apiReturnsStationClosed' => [
+                    $this->getApiDataProvider()->getPricesStationClosedResponse(),
+                    ApiClient::TYPE_E10,
+                    false,
+                    false,
+                    ''
+                ],
+                'apiReturnsNoPrices' => [
+                    $this->getApiDataProvider()->getPricesNoPricesResponse(),
+                    ApiClient::TYPE_E10,
+                    false,
+                    false,
+                    ''
+                ],
+                'apiReturnsNoStations' => [
+                    $this->getApiDataProvider()->getPricesNoStationsResponse(),
+                    ApiClient::TYPE_E10,
+                    true,
                     false,
                     ''
                 ]

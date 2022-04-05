@@ -22,4 +22,21 @@ class PriceInfoTest extends ApiTestCase
         $this->assertSame($priceinfo->e10, $e10);
         $this->assertSame($priceinfo->diesel, $diesel);
     }
+
+    public function testConstructNull()
+    {
+        $stationId = 'stationIdFixture';
+        $status = 'statusFixture';
+        $e5 = null;
+        $e10 = null;
+        $diesel = null;
+
+        $priceinfo = new PriceInfo($stationId, $status, $e5, $e10, $diesel);
+
+        $this->assertSame($priceinfo->stationId, $stationId);
+        $this->assertSame($priceinfo->status, $status);
+        $this->assertSame($priceinfo->e5, $e5);
+        $this->assertSame($priceinfo->e10, $e10);
+        $this->assertSame($priceinfo->diesel, $diesel);
+    }
 }

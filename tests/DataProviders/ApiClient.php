@@ -131,6 +131,9 @@ class ApiClient
         return $data;
     }
 
+    /**
+     * @return array
+     */
     public function getPricesResponse(): array
     {
         $data = [];
@@ -142,6 +145,66 @@ class ApiClient
         $priceitem['diesel'] = 1.80;
         $priceitem['status'] = 'stationStatus';
         $prices = ['stationId1' => $priceitem, 'stationId2' => $priceitem];
+        $data['prices'] = $prices;
+        return $data;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPricesLimitedResponse(): array
+    {
+        $data = [];
+        $data['ok'] = true;
+        $priceitem = [];
+        $priceitem['stationId'] = 'stationId';
+        $priceitem['e5'] = false;
+        $priceitem['e10'] = false;
+        $priceitem['diesel'] = 1.80;
+        $priceitem['status'] = 'stationStatus';
+        $prices = ['stationId1' => $priceitem, 'stationId2' => $priceitem];
+        $data['prices'] = $prices;
+        return $data;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPricesStationClosedResponse(): array
+    {
+        $data = [];
+        $data['ok'] = true;
+        $priceitem = [];
+        $priceitem['stationId'] = 'stationId';
+        $priceitem['status'] = 'closed';
+        $prices = ['stationId1' => $priceitem, 'stationId2' => $priceitem];
+        $data['prices'] = $prices;
+        return $data;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPricesNoPricesResponse(): array
+    {
+        $data = [];
+        $data['ok'] = true;
+        $priceitem = [];
+        $priceitem['stationId'] = 'stationId';
+        $priceitem['status'] = 'no prices';
+        $prices = ['stationId1' => $priceitem, 'stationId2' => $priceitem];
+        $data['prices'] = $prices;
+        return $data;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPricesNoStationsResponse(): array
+    {
+        $data = [];
+        $data['ok'] = true;
+        $prices = ['xxx' => 'no_stations'];
         $data['prices'] = $prices;
         return $data;
     }
