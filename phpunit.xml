@@ -5,7 +5,7 @@
     convertWarningsToExceptions="true">
 
     <testsuite name="tankerkoenig">
-        <directory>./tests</directory>
+        <directory>./Tests</directory>
     </testsuite>
 
     <filter>

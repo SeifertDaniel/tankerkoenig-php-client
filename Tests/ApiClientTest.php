@@ -435,9 +435,6 @@ class ApiClientTest extends ApiTestCase
         );
     }
 
-    /**
-     * @return array
-     */
     public function complaintDataProvider(): array
     {
         return [
@@ -669,7 +666,7 @@ class ApiClientTest extends ApiTestCase
         $cantRequest,
         $cantDecode,
         $responseContent
-    )
+    ): ApiClient|MockObject
     {
         /** @var MockObject|ApiClient $apiClientMock */
         $apiClientMock = $this->getMockBuilder( ApiClient::class )
