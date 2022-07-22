@@ -22,7 +22,7 @@
     "autoload": {
         "psr-4": {
             "DanielS\\Tankerkoenig\\": "src/",
-            "DanielS\\Tankerkoenig\\Tests\\": "tests/"
+            "DanielS\\Tankerkoenig\\Tests\\": "Tests/"
         }
     }
 }
