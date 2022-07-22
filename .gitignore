@@ -1,2 +1,4 @@
 .idea/
 api.php
+vendor
+composer.lock

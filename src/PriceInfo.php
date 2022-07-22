@@ -2,6 +2,7 @@
 
 namespace DanielS\Tankerkoenig;
 
+/** @phpstan-consistent-constructor */
 class PriceInfo
 {
 	public string $stationId;

@@ -11,13 +11,16 @@
         }
     ],
     "require": {
+        "php": "~8.0.3",
         "guzzlehttp/guzzle": "^7.4.2",
         "ext-json": "*",
         "ext-curl": "*"
     },
     "license": "MIT",
     "require-dev": {
-        "phpunit/phpunit": "^8.5.25"
+        "phpunit/phpunit": "^9.5",
+        "phpstan/phpstan": "^1.8",
+        "friendsofphp/php-cs-fixer": "^3.9"
     },
     "autoload": {
         "psr-4": {
