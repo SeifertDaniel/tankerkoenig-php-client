@@ -18,7 +18,7 @@ abstract class ApiTestCase extends TestCase
      * @return mixed
      * @throws ReflectionException
      */
-    public function callMethod(object $object, string $methodName, array $arguments = array()): mixed
+    public function callMethod(object $object, string $methodName, array $arguments = []): mixed
     {
         $class = new ReflectionClass($object);
         $method = $class->getMethod($methodName);

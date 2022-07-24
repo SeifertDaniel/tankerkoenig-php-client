@@ -61,8 +61,8 @@ class ApiClient
                 'houseNumber'   => 'stationNumber',
                 'postCode'  => 'stationPostCode',
                 'place' => 'stationPlace',
-                'price' => 1.85
-            ]
+                'price' => 1.85,
+            ],
         ];
     }
 
@@ -101,7 +101,7 @@ class ApiClient
                 'e5' => 1.90,
                 'e10' => 1.85,
                 'diesel' => 1.80,
-            ]
+            ],
         ];
     }
 

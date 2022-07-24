@@ -10,8 +10,8 @@ namespace DanielS\Tankerkoenig;
  * @package DanielS\Tankerkoenig
  */
 /** @phpstan-consistent-constructor */
-class PetrolStation {
-
+class PetrolStation
+{
     public string $id;
     public string $name;
     public string $brand;
@@ -31,7 +31,8 @@ class PetrolStation {
     public float $lng;
     public string|null $state;
 
-    public static function fromApiArray(array $array) : self {
+    public static function fromApiArray(array $array): self
+    {
         return new static(
             $array['id'],
             $array['name'],

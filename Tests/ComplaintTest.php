@@ -22,7 +22,7 @@ class ComplaintTest extends ApiTestCase
 {
     public Complaint $complaint;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -59,7 +59,7 @@ class ComplaintTest extends ApiTestCase
         return [
             'required'      => [Complaint::WRONG_PRICE_E10, true],
             'not required'  => [Complaint::WRONG_STATUS_CLOSED, false],
-            'unknown'       => ['unknown', false]
+            'unknown'       => ['unknown', false],
         ];
     }
 }

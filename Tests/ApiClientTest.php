@@ -23,7 +23,7 @@ class ApiClientTest extends ApiTestCase
     public ApiClient $api;
     public string $jsonFixture = 'json_content';
 
-    public function setUp():void
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -77,11 +77,11 @@ class ApiClientTest extends ApiTestCase
         $apiUrlMock->expects($this->once())->method('getBaseUri')->willReturn('baseUriFixture');
 
         /** @var MockObject|ApiClient $apiClientMock */
-        $apiClientMock = $this->getMockBuilder( ApiClient::class )
-              ->setConstructorArgs( [
+        $apiClientMock = $this->getMockBuilder(ApiClient::class)
+              ->setConstructorArgs([
                   $this->fixtureApiKey,
-                  $apiUrlMock
-                ] )
+                  $apiUrlMock,
+                ])
               ->getMock();
 
         $this->api = $apiClientMock;
@@ -111,13 +111,13 @@ class ApiClientTest extends ApiTestCase
         $requestClientMock = $this->getMockBuilder(Client::class)->getMock();
 
         /** @var MockObject|ApiClient $apiClientMock */
-        $apiClientMock = $this->getMockBuilder( ApiClient::class )
-              ->setConstructorArgs( [
+        $apiClientMock = $this->getMockBuilder(ApiClient::class)
+              ->setConstructorArgs([
                   $this->fixtureApiKey,
                   $apiUrlMock,
                   $complaintMock,
-                  $requestClientMock
-                ] )
+                  $requestClientMock,
+                ])
               ->getMock();
 
         $this->api = $apiClientMock;
@@ -169,7 +169,7 @@ class ApiClientTest extends ApiTestCase
                    )
                    ->willReturn('requestUrl');
 
-        $this->api = $this->getApiClientRequestMock( $apiUrlMock, $cantRequest, $cantDecode, $responseContent );
+        $this->api = $this->getApiClientRequestMock($apiUrlMock, $cantRequest, $cantDecode, $responseContent);
 
         if ($cantRequest || $cantDecode) {
             $this->expectException(ApiException::class);
@@ -202,15 +202,15 @@ class ApiClientTest extends ApiTestCase
                     ApiClient::TYPE_E10,
                     false,
                     false,
-                    $this->getApiDataProvider()->getExpectedSinglePriceResponse()
+                    $this->getApiDataProvider()->getExpectedSinglePriceResponse(),
                 ],
                 'apiReturnsAllPrices' => [
                     $this->getApiDataProvider()->getAllPricesResponse(),
                     ApiClient::TYPE_ALL,
                     false,
                     false,
-                    $this->getApiDataProvider()->getExpectedAllPricesResponse()
-                ]
+                    $this->getApiDataProvider()->getExpectedAllPricesResponse(),
+                ],
             ]
         );
     }
@@ -239,7 +239,7 @@ class ApiClientTest extends ApiTestCase
                    )
                    ->willReturn('requestUrl');
 
-        $this->api = $this->getApiClientRequestMock( $apiUrlMock, $cantRequest, $cantDecode, $responseContent );
+        $this->api = $this->getApiClientRequestMock($apiUrlMock, $cantRequest, $cantDecode, $responseContent);
 
         if ($cantRequest || $cantDecode) {
             $this->expectException(ApiException::class);
@@ -272,8 +272,8 @@ class ApiClientTest extends ApiTestCase
                     ApiClient::TYPE_E10,
                     false,
                     false,
-                    ''
-                ]
+                    '',
+                ],
             ]
         );
     }
@@ -302,7 +302,7 @@ class ApiClientTest extends ApiTestCase
                    )
                    ->willReturn('requestUrl');
 
-        $this->api = $this->getApiClientRequestMock( $apiUrlMock, $cantRequest, $cantDecode, $responseContent );
+        $this->api = $this->getApiClientRequestMock($apiUrlMock, $cantRequest, $cantDecode, $responseContent);
 
         if ($cantRequest || $cantDecode) {
             $this->expectException(ApiException::class);
@@ -339,36 +339,36 @@ class ApiClientTest extends ApiTestCase
                     'fuelType'          => ApiClient::TYPE_E10,
                     'cantRequest'       => false,
                     'cantDecode'        => false,
-                    'expected'          => ''
+                    'expected'          => '',
                 ],
                 'apiReturnsLimited' => [
                     $this->getApiDataProvider()->getPricesLimitedResponse(),
                     ApiClient::TYPE_E10,
                     false,
                     false,
-                    ''
+                    '',
                 ],
                 'apiReturnsStationClosed' => [
                     $this->getApiDataProvider()->getPricesStationClosedResponse(),
                     ApiClient::TYPE_E10,
                     false,
                     false,
-                    ''
+                    '',
                 ],
                 'apiReturnsNoPrices' => [
                     $this->getApiDataProvider()->getPricesNoPricesResponse(),
                     ApiClient::TYPE_E10,
                     false,
                     false,
-                    ''
+                    '',
                 ],
                 'apiReturnsNoStations' => [
                     $this->getApiDataProvider()->getPricesNoStationsResponse(),
                     ApiClient::TYPE_E10,
                     true,
                     false,
-                    ''
-                ]
+                    '',
+                ],
             ]
         );
     }
@@ -388,38 +388,38 @@ class ApiClientTest extends ApiTestCase
         $correction = 'correctionValue';
 
         /** @var MockObject|ApiClient $apiClientMock */
-        $apiClientMock = $this->getMockBuilder( ApiClient::class )
-            ->onlyMethods( [
+        $apiClientMock = $this->getMockBuilder(ApiClient::class)
+            ->onlyMethods([
                 'checkForMissingCorrection',
                 'request',
-                'decodeResponse'
-            ] )
-            ->setConstructorArgs( [ $this->fixtureApiKey ] )
+                'decodeResponse',
+            ])
+            ->setConstructorArgs([ $this->fixtureApiKey ])
             ->getMock();
 
         if ($correctionMissing) {
-            $apiClientMock->expects( $this->once() )->method( 'checkForMissingCorrection' )
-                                                    ->willThrowException( new ApiException() );
+            $apiClientMock->expects($this->once())->method('checkForMissingCorrection')
+                                                    ->willThrowException(new ApiException());
         } else {
-            $apiClientMock->expects( $this->once() )->method( 'checkForMissingCorrection' );
+            $apiClientMock->expects($this->once())->method('checkForMissingCorrection');
         }
 
         $invokation = $apiClientMock->expects($correctionMissing ? $this->never() : $this->once())
                                     ->method('request');
         $cantRequest ? $invokation->willThrowException(new ApiException()) : $invokation->willReturn($this->jsonFixture);
 
-        $invokation = $apiClientMock->expects( $cantRequest || $correctionMissing ? $this->never() : $this->once() )
-                      ->method( 'decodeResponse' )->with( $this->equalTo( $this->jsonFixture ) );
-        $cantDecode ? $invokation->willThrowException( new ApiException() ) : $invokation->willReturn( 'responseContent' );
+        $invokation = $apiClientMock->expects($cantRequest || $correctionMissing ? $this->never() : $this->once())
+                      ->method('decodeResponse')->with($this->equalTo($this->jsonFixture));
+        $cantDecode ? $invokation->willThrowException(new ApiException()) : $invokation->willReturn('responseContent');
 
-        if ( $cantDecode ) {
-            $apiClientMock->expects( $cantRequest || $correctionMissing ? $this->never() : $this->once() )
-                          ->method( 'decodeResponse' )->with( $this->equalTo( $this->jsonFixture ) )
-                          ->willThrowException( new ApiException() );
+        if ($cantDecode) {
+            $apiClientMock->expects($cantRequest || $correctionMissing ? $this->never() : $this->once())
+                          ->method('decodeResponse')->with($this->equalTo($this->jsonFixture))
+                          ->willThrowException(new ApiException());
         } else {
-            $apiClientMock->expects( $cantRequest || $correctionMissing ? $this->never() : $this->once() )
-                          ->method( 'decodeResponse' )->with( $this->equalTo( $this->jsonFixture ) )
-                          ->willReturn( 'responseContent' );
+            $apiClientMock->expects($cantRequest || $correctionMissing ? $this->never() : $this->once())
+                          ->method('decodeResponse')->with($this->equalTo($this->jsonFixture))
+                          ->willReturn('responseContent');
         }
 
         $this->api = $apiClientMock;
@@ -441,23 +441,23 @@ class ApiClientTest extends ApiTestCase
             'missingCorrectionValue' => [
                 'correctionMissing' => true,
                 'cantRequest'       => true,
-                'cantDecode'        => true
+                'cantDecode'        => true,
             ],
             'apiRequestError' => [
                 'correctionMissing' => false,
                 'cantRequest'       => true,
-                'cantDecode'        => true
+                'cantDecode'        => true,
             ],
             'apiResponseError' => [
                 'correctionMissing' => false,
                 'cantRequest'       => false,
-                'cantDecode'        => true
+                'cantDecode'        => true,
             ],
             'apiRequestOk' => [
                 'correctionMissing' => false,
                 'cantRequest'       => false,
-                'cantDecode'        => false
-            ]
+                'cantDecode'        => false,
+            ],
         ];
     }
 
@@ -485,7 +485,7 @@ class ApiClientTest extends ApiTestCase
         $responseMock = $this->getMockBuilder(Response::class)
             ->onlyMethods([
                 'getStatusCode',
-                'getBody'
+                'getBody',
             ])
             ->getMock();
         $responseMock->expects($this->atLeastOnce())->method('getStatusCode')->willReturn($statusCode);
@@ -527,7 +527,7 @@ class ApiClientTest extends ApiTestCase
     {
         return [
             'no status 200' => [500, true],
-            'status 200' => [200, false]
+            'status 200' => [200, false],
         ];
     }
 
@@ -633,14 +633,14 @@ class ApiClientTest extends ApiTestCase
                 'fuelType'          => ApiClient::TYPE_E10,
                 'cantRequest'       => true,
                 'cantDecode'        => true,
-                'expected'          => ''
+                'expected'          => '',
             ],
             'apiCantDecode' => [
                 'responseContent'   => $this->getApiDataProvider()->getNotOkArrayResponse(),
                 'fuelType'          => ApiClient::TYPE_E10,
                 'cantRequest'       => false,
                 'cantDecode'        => true,
-                'expected'          => ''
+                'expected'          => '',
             ],
         ];
     }
@@ -666,33 +666,32 @@ class ApiClientTest extends ApiTestCase
         $cantRequest,
         $cantDecode,
         $responseContent
-    ): ApiClient|MockObject
-    {
+    ): ApiClient|MockObject {
         /** @var MockObject|ApiClient $apiClientMock */
-        $apiClientMock = $this->getMockBuilder( ApiClient::class )
-            ->onlyMethods( [
+        $apiClientMock = $this->getMockBuilder(ApiClient::class)
+            ->onlyMethods([
                 'request',
-                'decodeResponse'
-            ] )
-            ->setConstructorArgs( [ $this->fixtureApiKey ] )
+                'decodeResponse',
+            ])
+            ->setConstructorArgs([ $this->fixtureApiKey ])
             ->getMock();
 
         $apiClientMock->apiUrl = $apiUrlMock;
 
-        if ( $cantRequest ) {
-            $apiClientMock->expects( $this->once() )->method( 'request' )->willThrowException( new ApiException() );
+        if ($cantRequest) {
+            $apiClientMock->expects($this->once())->method('request')->willThrowException(new ApiException());
         } else {
-            $apiClientMock->expects( $this->once() )->method( 'request' )->willReturn( $this->jsonFixture );
+            $apiClientMock->expects($this->once())->method('request')->willReturn($this->jsonFixture);
         }
 
-        if ( $cantDecode ) {
-            $apiClientMock->expects( $cantRequest ? $this->never() : $this->once() )
-                ->method( 'decodeResponse' )->with( $this->equalTo( $this->jsonFixture ) )
-                ->willThrowException( new ApiException() );
+        if ($cantDecode) {
+            $apiClientMock->expects($cantRequest ? $this->never() : $this->once())
+                ->method('decodeResponse')->with($this->equalTo($this->jsonFixture))
+                ->willThrowException(new ApiException());
         } else {
-            $apiClientMock->expects( $cantRequest ? $this->never() : $this->once() )
-                ->method( 'decodeResponse' )->with( $this->equalTo( $this->jsonFixture ) )
-                ->willReturn( $responseContent );
+            $apiClientMock->expects($cantRequest ? $this->never() : $this->once())
+                ->method('decodeResponse')->with($this->equalTo($this->jsonFixture))
+                ->willReturn($responseContent);
         }
 
         return $apiClientMock;

@@ -33,26 +33,41 @@ class PetrolStationTest extends ApiTestCase
         $state = 'stateFixture';
 
         $station = new PetrolStation(
-            $id, $name, $brand, $street, $houseno, $postCode, $place, $openingtimes, $overrides,
-            $wholeday, $isopen, $e5, $e10, $diesel, $lat, $lng, $state
+            $id,
+            $name,
+            $brand,
+            $street,
+            $houseno,
+            $postCode,
+            $place,
+            $openingtimes,
+            $overrides,
+            $wholeday,
+            $isopen,
+            $e5,
+            $e10,
+            $diesel,
+            $lat,
+            $lng,
+            $state
         );
 
-        $this->assertSame( $station->id, $id);
-        $this->assertSame( $station->name, $name);
-        $this->assertSame( $station->brand, $brand);
-        $this->assertSame( $station->street, $street);
-        $this->assertSame( $station->houseNumber, $houseno);
-        $this->assertSame( $station->postCode, $postCode);
-        $this->assertSame( $station->place, $place);
-        $this->assertSame( $station->openingTimes, $openingtimes);
-        $this->assertSame( $station->overrides, $overrides);
-        $this->assertSame( $station->wholeDay, $wholeday);
-        $this->assertSame( $station->isOpen, $isopen);
-        $this->assertSame( $station->e5, $e5);
-        $this->assertSame( $station->e10, $e10);
-        $this->assertSame( $station->diesel, $diesel);
-        $this->assertSame( $station->lat, $lat);
-        $this->assertSame( $station->lng, $lng);
-        $this->assertSame( $station->state, $state);
+        $this->assertSame($station->id, $id);
+        $this->assertSame($station->name, $name);
+        $this->assertSame($station->brand, $brand);
+        $this->assertSame($station->street, $street);
+        $this->assertSame($station->houseNumber, $houseno);
+        $this->assertSame($station->postCode, $postCode);
+        $this->assertSame($station->place, $place);
+        $this->assertSame($station->openingTimes, $openingtimes);
+        $this->assertSame($station->overrides, $overrides);
+        $this->assertSame($station->wholeDay, $wholeday);
+        $this->assertSame($station->isOpen, $isopen);
+        $this->assertSame($station->e5, $e5);
+        $this->assertSame($station->e10, $e10);
+        $this->assertSame($station->diesel, $diesel);
+        $this->assertSame($station->lat, $lat);
+        $this->assertSame($station->lng, $lng);
+        $this->assertSame($station->state, $state);
     }
 }

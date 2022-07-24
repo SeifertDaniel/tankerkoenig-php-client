@@ -38,7 +38,7 @@ class ApiUrl
                 'rad'   => $radius,
                 'sort'  => $sort,
                 'type'  => $type,
-                'apikey'=> $this->apiKey
+                'apikey'=> $this->apiKey,
             ]
         );
         return "list.php?$query";
@@ -54,7 +54,7 @@ class ApiUrl
         $query = http_build_query(
             [
                 'id'    => $stationId,
-                'apikey'=> $this->apiKey
+                'apikey'=> $this->apiKey,
             ]
         );
         return "detail.php?$query";
@@ -74,8 +74,8 @@ class ApiUrl
 
         $query = http_build_query(
             [
-                'ids'   => implode( ',', $stationList),
-                'apikey'=> $this->apiKey
+                'ids'   => implode(',', $stationList),
+                'apikey'=> $this->apiKey,
             ]
         );
 
@@ -88,7 +88,7 @@ class ApiUrl
     public function getComplaintUrl(): string
     {
         $query = http_build_query(['apikey'=> $this->apiKey]);
-        
+
         return $this->baseUri . "complaint.php?$query";
     }
 }

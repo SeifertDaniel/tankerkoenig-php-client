@@ -109,10 +109,10 @@ class ApiUrlTest extends ApiTestCase
 
         if (false === $expectException) {
             $this->assertTrue(
-                strpos( $url, '.php' ) > 0 &&
+                strpos($url, '.php') > 0 &&
                 strpos($url, (string) reset($stationList)) > 0 &&
                 strpos($url, (string) end($stationList)) > 0 &&
-                strpos( $url, $this->fixtureApiKey ) > 0
+                strpos($url, $this->fixtureApiKey) > 0
             );
         }
     }
