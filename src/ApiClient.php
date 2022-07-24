@@ -21,7 +21,7 @@ class ApiClient
     public Complaint $complaint;
     public Client $requestClient;
 
-    public function __construct(string $apiKey, $apiUrl = false, $complaint = false, $client = false)
+    public function __construct(string $apiKey, ApiUrl $apiUrl = null, Complaint $complaint = null, Client $client = null)
     {
         $this->apiKey = $apiKey;
         $this->apiUrl = $apiUrl ?: new ApiUrl($this->apiKey);
@@ -36,7 +36,7 @@ class ApiClient
      * @param int    $radius
      * @param string $sort
      *
-     * @return array
+     * @return array<int|string, string[]|mixed[]>
      * @throws ApiException
      * @throws GuzzleException
      */
@@ -92,9 +92,9 @@ class ApiClient
     }
 
     /**
-     * @param array $stationList
+     * @param array<String> $stationList
      *
-     * @return array
+     * @return array<PriceInfo>
      * @throws ApiException
      * @throws GuzzleException
      */
@@ -123,14 +123,14 @@ class ApiClient
     }
 
     /**
-     * @param $stationId
-     * @param $type
-     * @param $correction
+     * @param string $stationId
+     * @param string $type
+     * @param null $correction
      * @return bool
      * @throws ApiException
      * @throws GuzzleException
      */
-    public function complaint($stationId, $type, $correction = null): bool
+    public function complaint(string $stationId, string $type, $correction = null): bool
     {
         $this->checkForMissingCorrection($type, $correction);
 
@@ -148,15 +148,15 @@ class ApiClient
     }
 
     /**
-     * @param        $url
+     * @param string $url
      * @param string $method
-     * @param array  $postArgs
+     * @param array<string, string|null> $postArgs
      *
      * @return string
      * @throws ApiException
      * @throws GuzzleException
      */
-    protected function request($url, string $method = 'GET', array $postArgs = []): string
+    protected function request(string $url, string $method = 'GET', array $postArgs = []): string
     {
         $response = $this->requestClient->request(
             $method,
@@ -180,16 +180,16 @@ class ApiClient
      * @param string $json
      * @param bool   $associative
      *
-     * @return stdClass|array
+     * @return stdClass|array<string, float|int|string>
      * @throws ApiException
      */
-    protected function decodeResponse(string $json, bool $associative = false)
+    protected function decodeResponse(string $json, bool $associative = false): array|stdClass
     {
         if (strlen($json) === 0) {
             throw new ApiException("FEHLER - Die Tankerkoenig-API konnte nicht abgefragt werden!");
         }
 
-        /** @var stdClass|array $data */
+        /** @var stdClass|array<string, string|float|int> $data */
         $data = json_decode($json, $associative);
         $isObject = is_object($data);
 
@@ -202,12 +202,12 @@ class ApiClient
     }
 
     /**
-     * @param $type
-     * @param $correction
+     * @param string $type
+     * @param mixed $correction
      *
      * @throws ApiException
      */
-    protected function checkForMissingCorrection($type, $correction): void
+    protected function checkForMissingCorrection(string $type, mixed $correction): void
     {
         if ($this->complaint->isCorrectionRequired($type) && ! $correction) {
             throw new ApiException("FEHLER - Der Korrekturtyp '" . $type . "' erfordert die Angabe eines Korrekturwertes.");

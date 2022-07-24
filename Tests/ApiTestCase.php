@@ -13,7 +13,7 @@ abstract class ApiTestCase extends TestCase
      *
      * @param object $object
      * @param string $methodName
-     * @param array $arguments
+     * @param array<int, array<string>|float|int|bool|string> $arguments
      *
      * @return mixed
      * @throws ReflectionException
@@ -31,10 +31,11 @@ abstract class ApiTestCase extends TestCase
      *
      * @param object $object
      * @param string $valueName
-     * @param $value
+     * @param mixed $value
+     * @return void
      * @throws ReflectionException
      */
-    public function setValue(object $object, string $valueName, $value)
+    public function setValue(object $object, string $valueName, mixed $value): void
     {
         $reflection = new ReflectionClass($object);
         $property = $reflection->getProperty($valueName);

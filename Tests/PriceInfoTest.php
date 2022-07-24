@@ -6,7 +6,10 @@ use DanielS\Tankerkoenig\PriceInfo;
 
 class PriceInfoTest extends ApiTestCase
 {
-    public function testConstruct()
+    /**
+     * @return void
+     */
+    public function testConstruct(): void
     {
         $stationId = 'stationIdFixture';
         $status = 'statusFixture';
@@ -23,7 +26,10 @@ class PriceInfoTest extends ApiTestCase
         $this->assertSame($priceinfo->diesel, $diesel);
     }
 
-    public function testConstructNull()
+    /**
+     * @return void
+     */
+    public function testConstructNull(): void
     {
         $stationId = 'stationIdFixture';
         $status = 'statusFixture';

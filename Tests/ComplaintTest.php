@@ -31,15 +31,17 @@ class ComplaintTest extends ApiTestCase
 
     /**
      * @test
-     * @covers Complaint::isCorrectionRequired
+     * @covers       Complaint::isCorrectionRequired
      * @dataProvider isCorrectionRequiredDataProvider
      *
-     * @param $type
-     * @param $expected
+     * @param string $type
+     * @param bool $expected
      *
      * @throws ReflectionException
+     *
+     * @return void
      */
-    public function testIsCorrectionRequired($type, $expected)
+    public function testIsCorrectionRequired(string $type, bool $expected): void
     {
         $this->assertSame(
             $expected,
@@ -52,10 +54,11 @@ class ComplaintTest extends ApiTestCase
     }
 
     /**
-     * @return array[]
+     * @return array<string, array<string, bool>>
      */
     public function isCorrectionRequiredDataProvider(): array
     {
+        //@phpstan-ignore-next-line
         return [
             'required'      => [Complaint::WRONG_PRICE_E10, true],
             'not required'  => [Complaint::WRONG_STATUS_CLOSED, false],

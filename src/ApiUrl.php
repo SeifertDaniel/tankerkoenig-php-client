@@ -7,7 +7,10 @@ class ApiUrl
     public string $baseUri = 'https://creativecommons.tankerkoenig.de/json/';
     private string $apiKey;
 
-    public function __construct($apiKey)
+    /**
+     * @param string $apiKey
+     */
+    public function __construct(string $apiKey)
     {
         $this->apiKey = $apiKey;
     }
@@ -45,11 +48,11 @@ class ApiUrl
     }
 
     /**
-     * @param $stationId
+     * @param string $stationId
      *
      * @return string
      */
-    public function getStationDetailUrl($stationId): string
+    public function getStationDetailUrl(string $stationId): string
     {
         $query = http_build_query(
             [
@@ -61,7 +64,7 @@ class ApiUrl
     }
 
     /**
-     * @param array $stationList
+     * @param array<String> $stationList
      *
      * @return string
      * @throws ApiException

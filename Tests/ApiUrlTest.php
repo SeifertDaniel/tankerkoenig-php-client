@@ -22,8 +22,9 @@ class ApiUrlTest extends ApiTestCase
      * @test
      * @covers ApiUrl::getBaseUri
      * @throws ReflectionException
+     * @return void
      */
-    public function testGetBaseUri()
+    public function testGetBaseUri(): void
     {
         $baseUri = 'baseUriFixture';
         $this->apiUrl->baseUri = $baseUri;
@@ -41,8 +42,9 @@ class ApiUrlTest extends ApiTestCase
      * @test
      * @covers ApiUrl::getListUrl
      * @throws ReflectionException
+     * @return void
      */
-    public function testGetListUrl()
+    public function testGetListUrl(): void
     {
         $lat = 52.521;
         $lng = 13.413;
@@ -71,8 +73,9 @@ class ApiUrlTest extends ApiTestCase
      * @test
      * @covers ApiUrl::getStationDetailUrl
      * @throws ReflectionException
+     * @return void
      */
-    public function testGetStationDetailUrl()
+    public function testGetStationDetailUrl(): void
     {
         $stationId = 'stationIdFixture';
 
@@ -92,10 +95,13 @@ class ApiUrlTest extends ApiTestCase
     /**
      * @test
      * @dataProvider getPricesUrlDataProvider
-     * @covers ApiUrl::getPricesUrl
+     * @covers       ApiUrl::getPricesUrl
+     * @param array<string> $stationList
+     * @param bool $expectException
+     * @return void
      * @throws ReflectionException
      */
-    public function testGetPricesUrl(array $stationList, $expectException)
+    public function testGetPricesUrl(array $stationList, bool $expectException)
     {
         if ($expectException) {
             $this->expectException(ApiException::class);
@@ -118,7 +124,7 @@ class ApiUrlTest extends ApiTestCase
     }
 
     /**
-     * @return array[]
+     * @return array<string, array<array<int>|bool>>
      */
     public function getPricesUrlDataProvider(): array
     {
@@ -133,8 +139,9 @@ class ApiUrlTest extends ApiTestCase
      * @test
      * @covers ApiUrl::getComplaintUrl
      * @throws ReflectionException
+     * @return void
      */
-    public function testGetComplaintUrl()
+    public function testGetComplaintUrl(): void
     {
         $url = $this->callMethod(
             $this->apiUrl,

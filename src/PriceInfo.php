@@ -11,6 +11,10 @@ class PriceInfo
     public float|null $e10;
     public float|null $diesel;
 
+    /**
+     * @param array<String> $array
+     * @return static
+     */
     public static function fromApiArray(array $array): self
     {
         return new static(

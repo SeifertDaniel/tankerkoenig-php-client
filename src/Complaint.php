@@ -17,6 +17,7 @@ class Complaint
     public const WRONG_PETROL_STATION_PLACE    = 'wrongPetrolStationPlace';
     public const WRONG_PETROL_STATION_LOCATION = 'wrongPetrolStationLocation';
 
+    /** @var array|string[] */
     public array $correctionRequiredTypes = [
         self::WRONG_PETROL_STATION_NAME,
         self::WRONG_PRICE_E5,
@@ -31,11 +32,11 @@ class Complaint
     ];
 
     /**
-     * @param $type
+     * @param string $type
      *
      * @return bool
      */
-    public function isCorrectionRequired($type): bool
+    public function isCorrectionRequired(string $type): bool
     {
         return in_array($type, $this->correctionRequiredTypes);
     }

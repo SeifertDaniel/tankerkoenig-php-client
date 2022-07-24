@@ -15,6 +15,9 @@ class ApiClient
         $this->test = $test;
     }
 
+    /**
+     * @return array<string, string|bool>
+     */
     public function getNotOkArrayResponse(): array
     {
         $data = [];
@@ -50,6 +53,9 @@ class ApiClient
         return $data;
     }
 
+    /**
+     * @return array<string, array<string, float|string>>
+     */
     public function getExpectedSinglePriceResponse(): array
     {
         return [
@@ -87,6 +93,9 @@ class ApiClient
         return $data;
     }
 
+    /**
+     * @return array<string, array<string, string|float>>
+     */
     public function getExpectedAllPricesResponse(): array
     {
         return [
@@ -105,6 +114,9 @@ class ApiClient
         ];
     }
 
+    /**
+     * @return array<string, array<string, string|float|string[]>|bool>
+     */
     public function getStationDetailResponse(): array
     {
         $data = [];
@@ -132,7 +144,7 @@ class ApiClient
     }
 
     /**
-     * @return array
+     * @return array<string, array<string, array<string, string|float>>|bool>
      */
     public function getPricesResponse(): array
     {
@@ -150,7 +162,7 @@ class ApiClient
     }
 
     /**
-     * @return array
+     * @return array<string, array<string, array<string, string|float|bool>>|bool>
      */
     public function getPricesLimitedResponse(): array
     {
@@ -168,7 +180,7 @@ class ApiClient
     }
 
     /**
-     * @return array
+     * @return array<string, string[][]|bool>
      */
     public function getPricesStationClosedResponse(): array
     {
@@ -183,7 +195,7 @@ class ApiClient
     }
 
     /**
-     * @return array
+     * @return array<string, string[][]|bool>
      */
     public function getPricesNoPricesResponse(): array
     {
@@ -198,7 +210,7 @@ class ApiClient
     }
 
     /**
-     * @return array
+     * @return array<string, string[]|bool>
      */
     public function getPricesNoStationsResponse(): array
     {

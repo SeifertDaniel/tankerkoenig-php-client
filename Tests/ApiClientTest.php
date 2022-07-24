@@ -36,7 +36,7 @@ class ApiClientTest extends ApiTestCase
      * @return void
      * @throws ReflectionException
      */
-    public function testConstructNotInjected()
+    public function testConstructNotInjected(): void
     {
         $this->assertSame(
             $this->fixtureApiKey,
@@ -67,7 +67,7 @@ class ApiClientTest extends ApiTestCase
      * @covers ApiClient::__construct()
      * @return void
      */
-    public function testConstructInjectedApiUrl()
+    public function testConstructInjectedApiUrl(): void
     {
         /** @var MockObject|ApiUrl $apiUrlMock */
         $apiUrlMock = $this->getMockBuilder(ApiUrl::class)
@@ -97,7 +97,7 @@ class ApiClientTest extends ApiTestCase
      * @covers ApiClient::__construct()
      * @return void
      */
-    public function testConstructInjected()
+    public function testConstructInjected(): void
     {
         /** @var MockObject|ApiUrl $apiUrlMock */
         $apiUrlMock = $this->getMockBuilder(ApiUrl::class)
@@ -140,14 +140,24 @@ class ApiClientTest extends ApiTestCase
 
     /**
      * @test
-     * @covers ApiClient::search()
+     * @covers       ApiClient::search()
      * @dataProvider searchDataProvider
      *
+     * @param stdClass|array<string, array<string, stdClass|string|bool>> $responseContent
+     * @param string $fuelType
+     * @param bool $cantRequest
+     * @param bool $cantDecode
+     * @param string|array<string, array<string, string|bool>> $expected
      * @return void
      * @throws ReflectionException
      */
-    public function testSearch($responseContent, $fuelType, $cantRequest, $cantDecode, $expected = null)
-    {
+    public function testSearch(
+        array|stdClass $responseContent,
+        string $fuelType,
+        bool $cantRequest,
+        bool $cantDecode,
+        array|string $expected = null
+    ): void {
         $lat = 52.521;
         $lng = 13.413;
         $ftype = $fuelType;
@@ -190,7 +200,7 @@ class ApiClientTest extends ApiTestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array<string, stdClass|string|bool>>
      */
     public function searchDataProvider(): array
     {
@@ -217,13 +227,17 @@ class ApiClientTest extends ApiTestCase
 
     /**
      * @test
-     * @covers ApiClient::detail()
+     * @covers       ApiClient::detail()
      * @dataProvider detailDataProvider
      *
+     * @param array<string, array<int|string, array<string, array<array<bool|float|string>|string>|bool|string>|bool|string>> $responseContent
+     * @param string $fuelType
+     * @param bool $cantRequest
+     * @param bool $cantDecode
      * @return void
      * @throws ReflectionException
      */
-    public function testDetail($responseContent, $fuelType, $cantRequest, $cantDecode)
+    public function testDetail(array $responseContent, string $fuelType, bool $cantRequest, bool $cantDecode): void
     {
         unset($fuelType);
         $stationId = 'stationId';
@@ -260,7 +274,7 @@ class ApiClientTest extends ApiTestCase
     }
 
     /**
-     * @return array
+     * @return array<string, bool|array<string, float|string>>
      */
     public function detailDataProvider(): array
     {
@@ -280,13 +294,17 @@ class ApiClientTest extends ApiTestCase
 
     /**
      * @test
-     * @covers ApiClient::prices()
+     * @covers       ApiClient::prices()
      * @dataProvider pricesDataProvider
      *
+     * @param array<string, array<string, string>> $responseContent
+     * @param string $fuelType
+     * @param bool $cantRequest
+     * @param bool $cantDecode
      * @return void
      * @throws ReflectionException
      */
-    public function testPrices($responseContent, $fuelType, $cantRequest, $cantDecode)
+    public function testPrices(array $responseContent, string $fuelType, bool $cantRequest, bool $cantDecode): void
     {
         unset($fuelType);
         $stationList = ['stationId1','stationId2'];
@@ -327,7 +345,7 @@ class ApiClientTest extends ApiTestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array<int|string, array<string, array<array<bool|float|string>|string>|bool|string>|bool|string>>
      */
     public function pricesDataProvider(): array
     {
@@ -375,13 +393,16 @@ class ApiClientTest extends ApiTestCase
 
     /**
      * @test
-     * @covers ApiClient::complaint()
+     * @covers       ApiClient::complaint()
      * @dataProvider complaintDataProvider
      *
+     * @param bool $correctionMissing
+     * @param bool $cantRequest
+     * @param bool $cantDecode
      * @return void
      * @throws ReflectionException
      */
-    public function testComplaint($correctionMissing, $cantRequest, $cantDecode)
+    public function testComplaint(bool $correctionMissing, bool $cantRequest, bool $cantDecode): void
     {
         $stationId = 'stationId1';
         $type = 'complaintType';
@@ -410,7 +431,7 @@ class ApiClientTest extends ApiTestCase
 
         $invokation = $apiClientMock->expects($cantRequest || $correctionMissing ? $this->never() : $this->once())
                       ->method('decodeResponse')->with($this->equalTo($this->jsonFixture));
-        $cantDecode ? $invokation->willThrowException(new ApiException()) : $invokation->willReturn('responseContent');
+        $cantDecode ? $invokation->willThrowException(new ApiException()) : $invokation->willReturn(['responseContent']);
 
         if ($cantDecode) {
             $apiClientMock->expects($cantRequest || $correctionMissing ? $this->never() : $this->once())
@@ -419,7 +440,7 @@ class ApiClientTest extends ApiTestCase
         } else {
             $apiClientMock->expects($cantRequest || $correctionMissing ? $this->never() : $this->once())
                           ->method('decodeResponse')->with($this->equalTo($this->jsonFixture))
-                          ->willReturn('responseContent');
+                          ->willReturn(['responseContent']);
         }
 
         $this->api = $apiClientMock;
@@ -435,6 +456,9 @@ class ApiClientTest extends ApiTestCase
         );
     }
 
+    /**
+     * @return array<string, array<string, bool>>
+     */
     public function complaintDataProvider(): array
     {
         return [
@@ -463,16 +487,17 @@ class ApiClientTest extends ApiTestCase
 
     /**
      * @test
-     * @covers ApiClient::request()
+     * @covers       ApiClient::request()
      *
      * @dataProvider requestDataProvider
      *
-     * @param $statusCode
-     * @param $expectException
+     * @param int $statusCode
+     * @param bool $expectException
+     * @return void
      *
      * @throws ReflectionException
      */
-    public function testRequest($statusCode, $expectException)
+    public function testRequest(int $statusCode, bool $expectException): void
     {
         $method = 'fixtureMethod';
         $url = 'fixtureUrl';
@@ -521,7 +546,7 @@ class ApiClientTest extends ApiTestCase
     }
 
     /**
-     * @return array[]
+     * @return array<string, array<int|bool>>
      */
     public function requestDataProvider(): array
     {
@@ -536,13 +561,14 @@ class ApiClientTest extends ApiTestCase
      * @dataProvider decodeResponseDataProvider
      * @covers       ApiClient::decodeResponse()
      *
-     * @param $json
-     * @param $expectException
-     * @param $expected
+     * @param string $json
+     * @param bool $expectException
+     * @param array<string>|stdClass|bool $expected
+     * @return void
      *
      * @throws ReflectionException
      */
-    public function testDecodeResponse($json, $expectException, $expected)
+    public function testDecodeResponse(string $json, bool $expectException, array|stdClass|bool $expected): void
     {
         if ($expectException) {
             $this->expectException(ApiException::class);
@@ -563,7 +589,7 @@ class ApiClientTest extends ApiTestCase
     }
 
     /**
-     * @return array[]
+     * @return array<string, array<int, array<string, array<string, array<string>|float|string>|bool>|bool|stdClass|string>>
      */
     public function decodeResponseDataProvider(): array
     {
@@ -579,15 +605,16 @@ class ApiClientTest extends ApiTestCase
     /**
      * @test
      * @dataProvider checkForMissingCorrectionDataProvider
-     * @covers ApiClient::checkForMissingCorrection()
+     * @covers       ApiClient::checkForMissingCorrection()
      *
-     * @param $correctionRequired
-     * @param $correction
-     * @param $expectException
+     * @param bool $correctionRequired
+     * @param string|null $correction
+     * @param bool $expectException
+     * @return void
      *
      * @throws ReflectionException
      */
-    public function testCheckForMissingCorrection($correctionRequired, $correction, $expectException)
+    public function testCheckForMissingCorrection(bool $correctionRequired, string|null $correction, bool $expectException)
     {
         $type = 'complaintType';
 
@@ -611,7 +638,7 @@ class ApiClientTest extends ApiTestCase
     }
 
     /**
-     * @return array[]
+     * @return array<string, array<bool|string|null>>
      */
     public function checkForMissingCorrectionDataProvider(): array
     {
@@ -623,7 +650,7 @@ class ApiClientTest extends ApiTestCase
     }
 
     /**
-     * @return array[]
+     * @return array<string, array<string, array<string, bool|string>|bool|string>>
      */
     public function getExceptionDataProvider(): array
     {
@@ -655,17 +682,17 @@ class ApiClientTest extends ApiTestCase
 
     /**
      * @param ApiUrl|MockObject $apiUrlMock
-     * @param                   $cantRequest
-     * @param                   $cantDecode
-     * @param                   $responseContent
+     * @param bool $cantRequest
+     * @param bool $cantDecode
+     * @param stdClass|array<string, array<int|string, array<string, array<array<bool|float|string>|string>|bool|string>|bool|string>> $responseContent
      *
      * @return ApiClient|MockObject
      */
     protected function getApiClientRequestMock(
-        MockObject $apiUrlMock,
-        $cantRequest,
-        $cantDecode,
-        $responseContent
+        ApiUrl|MockObject $apiUrlMock,
+        bool $cantRequest,
+        bool $cantDecode,
+        stdClass|array $responseContent
     ): ApiClient|MockObject {
         /** @var MockObject|ApiClient $apiClientMock */
         $apiClientMock = $this->getMockBuilder(ApiClient::class)

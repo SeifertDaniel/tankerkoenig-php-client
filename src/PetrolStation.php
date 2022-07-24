@@ -19,7 +19,9 @@ class PetrolStation
     public string $houseNumber;
     public string $postCode;
     public string $place;
+    /** @var array<String>  */
     public array $openingTimes;
+    /** @var array<String>  */
     public array $overrides;
     public bool $wholeDay;
     public bool $isOpen;
@@ -31,6 +33,10 @@ class PetrolStation
     public float $lng;
     public string|null $state;
 
+    /**
+     * @param array<String> $array
+     * @return static
+     */
     public static function fromApiArray(array $array): self
     {
         return new static(
@@ -54,6 +60,25 @@ class PetrolStation
         );
     }
 
+    /**
+     * @param string $id
+     * @param string $name
+     * @param string $brand
+     * @param string $street
+     * @param string $houseNumber
+     * @param string $postCode
+     * @param string $place
+     * @param array<String> $openingTimes
+     * @param array<String> $overrides
+     * @param bool $wholeDay
+     * @param bool $isOpen
+     * @param float $e5
+     * @param float $e10
+     * @param float $diesel
+     * @param float $lat
+     * @param float $lng
+     * @param string|null $state
+     */
     public function __construct(
         string $id,
         string $name,
