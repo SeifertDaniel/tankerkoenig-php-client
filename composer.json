@@ -27,5 +27,15 @@
             "DanielS\\Tankerkoenig\\": "src/",
             "DanielS\\Tankerkoenig\\Tests\\": "Tests/"
         }
-    }
+    },
+    "funding": [
+        {
+            "type": "buymeacoffee",
+            "url": "https://www.buymeacoffee.com/DanielSeifert"
+        },
+        {
+            "type": "Github",
+            "url": "https://github.com/sponsors/SeifertDaniel"
+        }
+    ]
 }
