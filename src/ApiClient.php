@@ -42,7 +42,7 @@ class ApiClient
         ApiUrl $apiUrl = null,
         Complaint $complaint = null,
         Client $client = null
-    ) {
+    ){
         $this->apiKey = $apiKey;
         $this->apiUrl = $apiUrl ?: new ApiUrl($this->apiKey);
         $this->complaint = $complaint ?: new Complaint();
