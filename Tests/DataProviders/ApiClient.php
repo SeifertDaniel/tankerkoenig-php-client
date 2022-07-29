@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @copyright Copyright (c) 2017 Tobias Lang
+ * @copyright Copyright (c) 2022-present Daniel Seifert <git@daniel-seifert.com>
+ */
+
+declare(strict_types=1);
+
 namespace DanielS\Tankerkoenig\Tests\DataProviders;
 
 use DanielS\Tankerkoenig\Tests\ApiTestCase;
@@ -115,7 +125,7 @@ class ApiClient
     }
 
     /**
-     * @return array<string, array<string, string|float|string[]>|bool>
+     * @return array<string, array<string, array<int, string>|bool|float|string>|true>
      */
     public function getStationDetailResponse(): array
     {
@@ -134,8 +144,8 @@ class ApiClient
         $station['place'] = 'stationPlace';
         $station['openingTimes'] = ['stationOpeningTimes'];
         $station['overrides'] = ['stationOverrides'];
-        $station['wholeDay'] = 'stationWholeDay';
-        $station['isOpen'] = 'stationIsOpen';
+        $station['wholeDay'] = true;
+        $station['isOpen'] = true;
         $station['lat'] = 52.521;
         $station['lng'] = 13.413;
         $station['state'] = 'stationState';
@@ -162,7 +172,7 @@ class ApiClient
     }
 
     /**
-     * @return array<string, array<string, array<string, string|float|bool>>|bool>
+     * @return array<string, array<string, array<string, float|string|null>>|true>
      */
     public function getPricesLimitedResponse(): array
     {
@@ -170,8 +180,8 @@ class ApiClient
         $data['ok'] = true;
         $priceitem = [];
         $priceitem['stationId'] = 'stationId';
-        $priceitem['e5'] = false;
-        $priceitem['e10'] = false;
+        $priceitem['e5'] = null;
+        $priceitem['e10'] = null;
         $priceitem['diesel'] = 1.80;
         $priceitem['status'] = 'stationStatus';
         $prices = ['stationId1' => $priceitem, 'stationId2' => $priceitem];

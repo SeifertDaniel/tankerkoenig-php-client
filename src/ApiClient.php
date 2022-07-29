@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @copyright Copyright (c) 2017 Tobias Lang
+ * @copyright Copyright (c) 2022-present Daniel Seifert <git@daniel-seifert.com>
+ */
+
+declare(strict_types=1);
+
 namespace DanielS\Tankerkoenig;
 
 use GuzzleHttp\Client;
@@ -21,8 +31,18 @@ class ApiClient
     public Complaint $complaint;
     public Client $requestClient;
 
-    public function __construct(string $apiKey, ApiUrl $apiUrl = null, Complaint $complaint = null, Client $client = null)
-    {
+    /**
+     * @param string         $apiKey
+     * @param ApiUrl|null    $apiUrl
+     * @param Complaint|null $complaint
+     * @param Client|null    $client
+     */
+    public function __construct(
+        string $apiKey,
+        ApiUrl $apiUrl = null,
+        Complaint $complaint = null,
+        Client $client = null
+    ) {
         $this->apiKey = $apiKey;
         $this->apiUrl = $apiUrl ?: new ApiUrl($this->apiKey);
         $this->complaint = $complaint ?: new Complaint();
@@ -125,12 +145,12 @@ class ApiClient
     /**
      * @param string $stationId
      * @param string $type
-     * @param null $correction
+     * @param string|null $correction
      * @return bool
      * @throws ApiException
      * @throws GuzzleException
      */
-    public function complaint(string $stationId, string $type, $correction = null): bool
+    public function complaint(string $stationId, string $type, string $correction = null): bool
     {
         $this->checkForMissingCorrection($type, $correction);
 

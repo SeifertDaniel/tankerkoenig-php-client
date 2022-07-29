@@ -1,6 +1,7 @@
-MIT License
+# The MIT License (MIT)
 
-Copyright (c) 2017 Tobias Lang, Daniel Seifert
+Copyright: (c) 2017 Tobias Lang
+           (c) 2022-present Daniel Seifert
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

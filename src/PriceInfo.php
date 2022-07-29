@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @copyright Copyright (c) 2017 Tobias Lang
+ * @copyright Copyright (c) 2022-present Daniel Seifert <git@daniel-seifert.com>
+ */
+
+declare(strict_types=1);
+
 namespace DanielS\Tankerkoenig;
 
 /** @phpstan-consistent-constructor */
@@ -12,7 +22,7 @@ class PriceInfo
     public float|null $diesel;
 
     /**
-     * @param array<String> $array
+     * @param string[] $array
      * @return static
      */
     public static function fromApiArray(array $array): self
@@ -26,12 +36,19 @@ class PriceInfo
         );
     }
 
+    /**
+     * @param string     $stationId
+     * @param string     $status
+     * @param float|null $e5
+     * @param float|null $e10
+     * @param float|null $diesel
+     */
     public function __construct(
         string $stationId,
         string $status,
-        float|null $e5,
-        float|null $e10,
-        float|null $diesel
+        float $e5 = null,
+        float $e10 = null,
+        float $diesel = null
     ) {
         $this->stationId = $stationId;
         $this->status = $status;

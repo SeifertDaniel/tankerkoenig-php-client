@@ -1,17 +1,14 @@
 <?php
 
 /**
- * This Software is the property of Data Development and is protected
- * by copyright law - it is NOT Freeware.
- * Any unauthorized use of this software without a valid license
- * is a violation of the license agreement and will be prosecuted by
- * civil and criminal law.
- * http://www.shopmodule.com
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * @copyright (C) D3 Data Development (Inh. Thomas Dartsch)
- * @author        D3 Data Development - Daniel Seifert <support@shopmodule.com>
- * @link          http://www.oxidmodule.com
+ * @copyright Copyright (c) 2017 Tobias Lang
+ * @copyright Copyright (c) 2022-present Daniel Seifert <git@daniel-seifert.com>
  */
+
+declare(strict_types=1);
 
 namespace DanielS\Tankerkoenig\Tests;
 
