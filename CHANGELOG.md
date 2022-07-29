@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/SeifertDaniel/tankerkoenig-php-client/compare/1.0.0...rel_1.x)
 
-## [1.0.0](https://github.com/SeifertDaniel/tankerkoenig-php-client/tag/1.0.0) - 2021-07-29
+## [1.0.0](https://github.com/SeifertDaniel/tankerkoenig-php-client/releases/tag/1.0.0) - 2021-07-29
 ### Added
 - initial implementation
 - requestable endpoints:
